@@ -343,24 +343,32 @@ class MainWindow(QMainWindow):
         filepath = self.backup_folder + "\\devcenter.trlist"
         root_groups = list[RootGroup]()
         site_loaded = False
+        file_loaded = False
         if os.path.exists(filepath):
-            # 파일에서 TR리스트 읽어옴
-            with open(filepath, "r", encoding='utf8') as f:
-                lines = f.readlines()
-                for line in lines:
-                    words = line.strip().split("^")
-                    if len(words) < 3:
-                        continue
-                    if words[0] == "0":
-                        root_group = RootGroup(words[1], words[2])
-                        root_groups.append(root_group)
-                    elif words[0] == "1":
-                        sub_group = {"id": words[1], "name": words[2], "accessUrl": words[3], "protocolType": words[4], "tr_props": list()}
-                        root_group.add_sub_group(sub_group)
-                    elif words[0] == "2":
-                        tr_prop = {"id": words[1], "trCode": words[2], "trName": words[3], "transactionPerSec": words[4]}
-                        sub_group['tr_props'].append(tr_prop)
-        else:
+            # 파일의 변경일자가 1일 이상인 경우에만 서버에서 TR리스트 가져옴 (서버부하방지)
+            file_time = os.path.getmtime(filepath)
+            file_time = datetime.fromtimestamp(file_time)
+            now_time = datetime.now()
+            if (now_time - file_time).days < 1:
+                # 파일에서 TR리스트 읽어옴
+                with open(filepath, "r", encoding='utf8') as f:
+                    lines = f.readlines()
+                    for line in lines:
+                        words = line.strip().split("^")
+                        if len(words) < 3:
+                            continue
+                        if words[0] == "0":
+                            root_group = RootGroup(words[1], words[2])
+                            root_groups.append(root_group)
+                        elif words[0] == "1":
+                            sub_group = {"id": words[1], "name": words[2], "accessUrl": words[3], "protocolType": words[4], "tr_props": list()}
+                            root_group.add_sub_group(sub_group)
+                        elif words[0] == "2":
+                            tr_prop = {"id": words[1], "trCode": words[2], "trName": words[3], "transactionPerSec": words[4]}
+                            sub_group['tr_props'].append(tr_prop)
+                    file_loaded = True
+
+        if not file_loaded:
             # 파일 없는 경우에만, 서버에서 TR리스트 가져옴 (서버부하방지)
             count = 0
             root_groups = await LSSiteHelper.GetRootGroups()
@@ -390,9 +398,9 @@ class MainWindow(QMainWindow):
                 sub_item = QTreeWidgetItem(item, [subgroup['name']])
                 for tr_prop in subgroup['tr_props']:
                     tr_prop['.parent'] = subgroup
-                    self.map_trprops[tr_prop['trCode']] = tr_prop
                     tr_cd = tr_prop['trCode'].strip()
                     tr_prop['trCode'] = tr_cd
+                    self.map_trprops[tr_cd] = tr_prop
                     QTreeWidgetItem(sub_item, [tr_cd, tr_prop['trName']])
                     tr_count += 1
         self.tab_code_list.setTabText(0, f"TR목록 ({tr_count})")

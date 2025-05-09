@@ -24,6 +24,18 @@
   <ItemGroup>
     <Compile Include="00. 사용방법.py" />
     <Compile Include="01. 로그인.py" />
+    <Compile Include="51. 해외주식-주문종합.py" />
+    <Compile Include="50. 해외주식-미체결조회.py" />
+    <Compile Include="49. 해외주식-잔고조회.py" />
+    <Compile Include="48. 해외주식-예수금조회.py" />
+    <Compile Include="45. 해외주식-차트-연속조회.py" />
+    <Compile Include="44. 해외주식-차트-일주월년.py" />
+    <Compile Include="43. 해외주식-차트-분.py" />
+    <Compile Include="47. 해외주식-실시간호가.py" />
+    <Compile Include="46. 해외주식-실시간체결.py" />
+    <Compile Include="42. 해외주식-현재가.py" />
+    <Compile Include="41. 해외주식-종목정보.py" />
+    <Compile Include="40. 해외주식-마스터조회.py" />
     <Compile Include="02. 전체업종.py" />
     <Compile Include="03. 주식전종목조회.py" />
     <Compile Include="28. 해외선물 잔고-미체결-주문.py" />
@@ -37,8 +49,8 @@
     <Compile Include="25. 해외선물 종목정보.py" />
     <Compile Include="24. 해외선물 마스터조회.py" />
     <Compile Include="27. 해외선물-실시간 시세.py" />
-    <Compile Include="41. 코스피 주가 출력.py" />
-    <Compile Include="43. 차트 보조지표 계산.py" />
+    <Compile Include="81. 코스피 주가 출력.py" />
+    <Compile Include="83. 차트 보조지표 계산.py" />
     <Compile Include="05. 주식차트.py" />
     <Compile Include="06. 주식차트 -연속조회.py" />
     <Compile Include="07. 계좌예수금조회.py" />
@@ -53,10 +65,10 @@
     <Compile Include="22. 국내선물-실시간시세.py" />
     <Compile Include="31. qt-주식정보조회.py" />
     <Compile Include="32. qt-주식계좌조회.py" />
-    <Compile Include="42. 주식 일봉데이터 수집.py" />
-    <Compile Include="46. 국선 이평매매 백테스팅-분봉.py" />
-    <Compile Include="45. 국선 이평매매 백테스팅.py" />
-    <Compile Include="44. 주식 이평매매 백테스팅.py" />
+    <Compile Include="82. 주식 일봉데이터 수집.py" />
+    <Compile Include="86. 국선 이평매매 백테스팅-분봉.py" />
+    <Compile Include="85. 국선 이평매매 백테스팅.py" />
+    <Compile Include="84. 주식 이평매매 백테스팅.py" />
     <Compile Include="common.py" />
     <Compile Include="Devcenter.py" />
   </ItemGroup>

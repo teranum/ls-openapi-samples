@@ -617,7 +617,8 @@ class MainWindow(QMainWindow):
                     if propertyLength is None:
                         if InblockRecord is not None:
                             inblocks.append(InblockRecord)
-                        InblockRecord = BlockRecord(field['propertyCd'].strip(), LSSiteHelper.GetDataType(field['propertyType']), [])
+                        block_name = field['propertyCd'].strip().replace('&nbsp;', '').replace('-', '')
+                        InblockRecord = BlockRecord(block_name, LSSiteHelper.GetDataType(field['propertyType']), [])
                     else:
                         size = propertyLength.strip()
                         code = field['propertyCd'].replace('&nbsp;', '').replace('-', '')
@@ -634,7 +635,8 @@ class MainWindow(QMainWindow):
                     if propertyLength is None:
                         if OutblockRecord is not None:
                             outblocks.append(OutblockRecord)
-                        OutblockRecord = BlockRecord(field['propertyCd'].strip(), LSSiteHelper.GetDataType(field['propertyType']), [])
+                        block_name = field['propertyCd'].strip().replace('&nbsp;', '').replace('-', '')
+                        OutblockRecord = BlockRecord(block_name, LSSiteHelper.GetDataType(field['propertyType']), [])
                     else:
                         size = propertyLength.strip()
                         code = field['propertyCd'].replace('&nbsp;', '').replace('-', '')
